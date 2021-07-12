@@ -95,16 +95,17 @@ export class AuthService {
     this.authStateSource.next(newAuthState);
   }
 
-
   /**
    * Generates and assigns an unguessable random 'state' string to pass to Github for protection against cross-site request forgery attacks
    */
   generateStateString() {
     this.state = uuid();
+    sessionStorage.setItem('state', this.state);
   }
 
   isReturnedStateSame(returnedState: string): boolean {
-    return returnedState === this.state;
+    const state = sessionStorage.getItem('state');
+    return returnedState === state;
   }
 
   /**
@@ -119,55 +120,20 @@ export class AuthService {
       this.electronService.sendIpcMessage('github-oauth', githubRepoPermission);
     } else {
       this.generateStateString();
-      this.createOauthWindow(encodeURI(
+      this.redirectToOAuthPage(encodeURI(
         `${AppConfig.githubUrl}/login/oauth/authorize?client_id=${AppConfig.clientId}&scope=${githubRepoPermission},read:user&state=${this.state}`
       ));
-      this.logger.info('Opening window for Github authentication');
+      this.logger.info('Redirecting for Github authentication');
     }
   }
 
   /**
-   * Will do a poll on whether the given window is closed.
-   * If it is closed and user is still not authenticated, change the auth status to not authenticated.
+   * Will redirect to GitHub OAuth page
    */
-  private confirmWindowClosed(window: Window): void {
-    const authService = this;
-    const pollTimer = window.setInterval(function() {
-      if (window.closed) {
-        window.clearInterval(pollTimer);
-        if (!authService.accessToken) {
-          authService.changeAuthState(AuthState.NotAuthenticated);
-        }
-      }
-    }, 1000);
-  }
-
-  /**
-   * Will create a web version of oauth window.
-   */
-  private createOauthWindow(
-    url: string,
-    width: number = 500,
-    height: number = 600,
-    left: number = 0,
-    top: number = 0
-  ): void {
+  private redirectToOAuthPage(url: string): void {
     if (url == null) {
       return;
     }
-    const options = `width=${width},height=${height},left=${left},top=${top}`;
-    const oauthWindow = window.open(`${url}`, 'Authorization', options);
-    const authService = this;
-
-    if (oauthWindow == null) {
-      throw new Error(this.ENABLE_POPUP_MESSAGE);
-    }
-
-    oauthWindow.addEventListener('unload', () => {
-      if (!oauthWindow.closed) {
-        // unload event could be triggered when there is a redirection, hence, a confirmation needed.
-        authService.confirmWindowClosed(oauthWindow);
-      }
-    });
+    window.location.href = url;
   }
 }

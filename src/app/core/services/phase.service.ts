@@ -77,9 +77,18 @@ export class PhaseService {
     return this.fetchSessionData().pipe(
       assertSessionDataIntegrity(),
       map((sessionData: SessionData) => {
+        localStorage.setItem('sessionData', JSON.stringify(sessionData));
         this.updateSessionParameters(sessionData);
       })
     );
+  }
+
+  /**
+   * Retrieves session data from local storage and update phase service with it.
+   */
+  setSessionData() {
+    const sessionData = JSON.parse(localStorage.getItem('sessionData'));
+    this.updateSessionParameters(sessionData);
   }
 
   /**
