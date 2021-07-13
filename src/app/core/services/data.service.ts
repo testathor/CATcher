@@ -9,6 +9,11 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Responsible for pasring data related to staff and student information
+ * for the current session in CATcher.
+ */
 export class DataService {
   public dataFile: DataFile;
 

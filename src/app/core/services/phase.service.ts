@@ -22,6 +22,11 @@ export const PhaseDescription = {
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Responsible for manging the current phase of CATcher as well as the
+ * current session data and repository details related to the session.
+ */
 export class PhaseService {
 
   public currentPhase: Phase;

@@ -23,6 +23,11 @@ export enum AuthState { 'NotAuthenticated', 'AwaitingAuthentication', 'ConfirmOA
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Responsible for initiating the authentication process and querying or
+ * updating the application state with regards to authentication.
+ */
 export class AuthService {
   authStateSource = new BehaviorSubject(AuthState.NotAuthenticated);
   currentAuthState = this.authStateSource.asObservable();
