@@ -34,12 +34,12 @@ export const jsonData = {
   },
   'team-structure': {
     'CS2103T-W12-3': {
-      junwei96: 'true',
-      '003-samuel': 'true',
-      damithc: 'true',
-      ptvrajsk: 'true'
+      junwei96: 'JunWei96',
+      '003-samuel': '003-samuel',
+      damithc: 'damithc',
+      ptvrajsk: 'ptvrajsk'
     },
-    'CS2103T-W12-4': { ronaklakhotia: 'true' }
+    'CS2103T-W12-4': { ronaklakhotia: 'RonakLakhotia' }
   },
   'students-allocation': {
     junwei96: { teamId: 'CS2103T-W12-3' },
@@ -60,7 +60,7 @@ export const jsonData = {
 export const TEAM_3 = new Team({
   id: 'CS2103T-W12-3',
   teamMembers: [
-    { loginId: 'junwei96', role: UserRole.Student },
+    { loginId: 'JunWei96', role: UserRole.Student },
     { loginId: '003-samuel', role: UserRole.Student },
     { loginId: 'damithc', role: UserRole.Student },
     { loginId: 'ptvrajsk', role: UserRole.Student }
@@ -69,11 +69,11 @@ export const TEAM_3 = new Team({
 
 export const TEAM_4 = new Team({
   id: 'CS2103T-W12-4',
-  teamMembers: [{ loginId: 'ronaklakhotia', role: UserRole.Student }]
+  teamMembers: [{ loginId: 'RonakLakhotia', role: UserRole.Student }]
 });
 
 export const USER_JUNWEI = {
-  loginId: 'junwei96',
+  loginId: 'JunWei96',
   role: UserRole.Student,
   team: TEAM_3
 };
@@ -109,13 +109,13 @@ export const dataFileTeamStructure: DataFile = {
       new Team({
         id: 'CS2103T-W12-3',
         teamMembers: [
-          { loginId: 'junwei96', role: UserRole.Student },
+          { loginId: 'JunWei96', role: UserRole.Student },
           { loginId: '003-samuel', role: UserRole.Student },
           { loginId: 'damithc', role: UserRole.Student },
           { loginId: 'ptvrajsk', role: UserRole.Student }
         ]
       })
     ],
-    ['CS2103T-W12-4', new Team({ id: 'CS2103T-W12-4', teamMembers: [{ loginId: 'ronaklakhotia', role: UserRole.Student }] })]
+    ['CS2103T-W12-4', new Team({ id: 'CS2103T-W12-4', teamMembers: [{ loginId: 'RonakLakhotia', role: UserRole.Student }] })]
   ])
 };
